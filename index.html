@@ -6,17 +6,73 @@
   <title>Zona Gamer IoT</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { background: linear-gradient(135deg, #0f0f0f, #1a1a1a); color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-    header { background: #111; border-bottom: 2px solid #0ff; padding: 15px 0; }
-    .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    header h1 { color: #0ff; font-weight: bold; text-shadow: 0 0 8px #0ff, 0 0 12px #00f; margin: 0; }
-    .btn-outline-gamer { border: 2px solid #0ff; color: #0ff; background-color: transparent; font-weight: bold; margin-left: 10px; transition: 0.3s; }
-    .btn-outline-gamer:hover { background-color: #0ff; color: #111; }
-    main { flex: 1; }
-    .tables-container { display: flex; gap: 30px; flex-wrap: wrap; margin-bottom: 40px; }
-    .table-container { flex: 1 1 300px; }
-    footer { background: #111; border-top: 2px solid #0ff; text-align: center; padding: 10px; color: #ccc; }
-    .color-indicator { display: inline-block; width: 20px; height: 20px; border-radius: 50%; margin-left: 8px; border: 1px solid #fff; vertical-align: middle; }
+    body {
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #111;
+      border-bottom: 2px solid #0ff;
+      padding: 15px 0;
+    }
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header h1 {
+      color: #0ff;
+      font-weight: bold;
+      text-shadow: 0 0 8px #0ff, 0 0 12px #00f;
+      margin: 0;
+    }
+    .btn-outline-gamer {
+      border: 2px solid #0ff;
+      color: #0ff;
+      background-color: transparent;
+      font-weight: bold;
+      margin-left: 10px;
+      transition: 0.3s;
+    }
+    .btn-outline-gamer:hover {
+      background-color: #0ff;
+      color: #111;
+    }
+    main {
+      flex: 1;
+    }
+    .tables-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .table-container {
+      flex: 1 1 300px;
+    }
+    footer {
+      background: #111;
+      border-top: 2px solid #0ff;
+      text-align: center;
+      padding: 10px;
+      color: #ccc;
+    }
+    .color-indicator {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-left: 8px;
+      border: 1px solid #fff;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
@@ -33,14 +89,13 @@
 
 <main class="container my-5">
   <div class="tables-container">
-
-    <!-- Tabla de Luces LED -->
+    
+    <!-- Tabla Luces LED -->
     <div class="table-container">
       <h3>Luces LED</h3>
       <table class="table table-dark table-striped">
         <thead>
           <tr>
-            <th>Fecha/Hora</th>
             <th>Nombre</th>
             <th>Estado</th>
             <th>Color</th>
@@ -48,19 +103,16 @@
         </thead>
         <tbody id="tabla-leds"></tbody>
       </table>
-      <div class="d-flex gap-2">
-        <button class="btn btn-outline-gamer" data-bs-toggle="modal" data-bs-target="#modalLED">Agregar Luz LED</button>
-        <button class="btn btn-outline-gamer" id="editarUltimoLED">Editar Último</button>
-      </div>
+      <button class="btn btn-outline-gamer" id="addLED">Agregar Luz LED</button>
+      <button class="btn btn-outline-gamer" id="editLED">Editar Último LED</button>
     </div>
 
-    <!-- Tabla de Consolas -->
+    <!-- Tabla Consolas -->
     <div class="table-container">
       <h3>Consolas</h3>
       <table class="table table-dark table-striped">
         <thead>
           <tr>
-            <th>Fecha/Hora</th>
             <th>Nombre</th>
             <th>Estado</th>
             <th>Juego</th>
@@ -69,19 +121,16 @@
         </thead>
         <tbody id="tabla-consolas"></tbody>
       </table>
-      <div class="d-flex gap-2">
-        <button class="btn btn-outline-gamer" data-bs-toggle="modal" data-bs-target="#modalConsola">Agregar Consola</button>
-        <button class="btn btn-outline-gamer" id="editarUltimoConsola">Editar Último</button>
-      </div>
+      <button class="btn btn-outline-gamer" id="addConsola">Agregar Consola</button>
+      <button class="btn btn-outline-gamer" id="editConsola">Editar Última Consola</button>
     </div>
 
-    <!-- Tabla de PC Gamer -->
+    <!-- Tabla PC Gamer -->
     <div class="table-container">
       <h3>PC Gamer</h3>
       <table class="table table-dark table-striped">
         <thead>
           <tr>
-            <th>Fecha/Hora</th>
             <th>Nombre</th>
             <th>Estado</th>
             <th>Juego</th>
@@ -90,10 +139,11 @@
         </thead>
         <tbody id="tabla-pc"></tbody>
       </table>
-      <div class="d-flex gap-2">
-        <button class="btn btn-outline-gamer" data-bs-toggle="modal" data-bs-target="#modalPC">Agregar PC Gamer</button>
-        <button class="btn btn-outline-gamer" id="editarUltimoPC">Editar Último</button>
-      </div>
+      <button class="btn btn-outline-gamer" id="addPC">Agregar PC Gamer</button>
+      <button class="btn btn-outline-gamer" id="editPC">Editar Última PC Gamer</button>
+      <br><br>
+      <button class="btn btn-outline-gamer" id="agregarJuego">Añadir Juego</button>
+      <button class="btn btn-danger" id="desinstalarJuego">Desinstalar Juego</button>
     </div>
 
   </div>
@@ -109,6 +159,7 @@
       </div>
       <div class="modal-body">
         <form id="formLED">
+          <input type="hidden" id="ledId">
           <div class="mb-3">
             <label class="form-label">Nombre</label>
             <input type="text" class="form-control" id="nombreLED" required>
@@ -146,6 +197,7 @@
       </div>
       <div class="modal-body">
         <form id="formConsola">
+          <input type="hidden" id="consolaId">
           <div class="mb-3">
             <label class="form-label">Nombre</label>
             <input type="text" class="form-control" id="nombreConsola" required>
@@ -161,12 +213,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Juego</label>
-            <select class="form-select" id="juegoConsola" required>
-              <option value="Fifa">Fifa</option>
-              <option value="Minecraft">Minecraft</option>
-              <option value="Fortnite">Fortnite</option>
-              <option value="Hollow Knight">Hollow Knight</option>
-            </select>
+            <select class="form-select" id="juegoConsola" required></select>
           </div>
           <button type="submit" class="btn btn-outline-gamer w-100">Guardar</button>
         </form>
@@ -175,7 +222,7 @@
   </div>
 </div>
 
-<!-- Modal PC Gamer -->
+<!-- Modal PC -->
 <div class="modal fade" id="modalPC" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content bg-dark text-white">
@@ -185,6 +232,7 @@
       </div>
       <div class="modal-body">
         <form id="formPC">
+          <input type="hidden" id="pcId">
           <div class="mb-3">
             <label class="form-label">Nombre</label>
             <input type="text" class="form-control" id="nombrePC" required>
@@ -200,14 +248,51 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Juego</label>
-            <select class="form-select" id="juegoPC" required>
-              <option value="Fifa">Fifa</option>
-              <option value="Minecraft">Minecraft</option>
-              <option value="Fortnite">Fortnite</option>
-              <option value="Hollow Knight">Hollow Knight</option>
-            </select>
+            <select class="form-select" id="juegoPC" required></select>
           </div>
           <button type="submit" class="btn btn-outline-gamer w-100">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Añadir Juego -->
+<div class="modal fade" id="modalJuego" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title">Añadir Juego</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formJuego">
+          <div class="mb-3">
+            <label class="form-label">Nombre del Juego</label>
+            <input type="text" class="form-control" id="nombreJuego" required>
+          </div>
+          <button type="submit" class="btn btn-outline-gamer w-100">Agregar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Desinstalar Juego -->
+<div class="modal fade" id="modalDesinstalar" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title">Desinstalar Juego</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formDesinstalar">
+          <div class="mb-3">
+            <label class="form-label">Selecciona un Juego</label>
+            <select class="form-select" id="juegoEliminar"></select>
+          </div>
+          <button type="submit" class="btn btn-danger w-100">Eliminar</button>
         </form>
       </div>
     </div>
@@ -221,6 +306,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 const apiUrl="https://68bb0de684055bce63f104f9.mockapi.io/api/v1/zona_gamer";
+let listaJuegos=["Fifa","Minecraft","Fortnite","Hollow Knight"];
 const coloresCSS={rojo:"red",azul:"blue",verde:"green",morado:"purple"};
 
 function generarTemperatura(){return Math.floor(Math.random()*(80-30+1))+30;}
@@ -229,32 +315,26 @@ function getColorTemp(temp){if(temp<50)return"green";if(temp<=65)return"orange";
 async function cargarDatos(){
   const res=await fetch(apiUrl);
   const datos=await res.json();
+  const leds=datos.filter(d=>d.type==="led").slice(-5);
+  const consolas=datos.filter(d=>d.type==="consola").slice(-5);
+  const pcs=datos.filter(d=>d.type==="pc").slice(-5);
 
-  const leds=datos.filter(d=>d.type==="led").sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
-  const consolas=datos.filter(d=>d.type==="consola").sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
-  const pcs=datos.filter(d=>d.type==="pc").sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
-
-  // Luces LED
-  const tablaLED=document.getElementById("tabla-leds");
-  tablaLED.innerHTML="";
+  const tablaLED=document.getElementById("tabla-leds"); tablaLED.innerHTML="";
   leds.forEach(item=>{
     const colorCirculo=item.status==="ON"?coloresCSS[item.color]:"black";
     tablaLED.innerHTML+=`<tr>
-      <td>${new Date(item.date).toLocaleString()}</td>
       <td>${item.name}</td>
       <td>${item.status}</td>
       <td><span class="color-indicator" style="background:${colorCirculo}"></span> ${item.color}</td>
     </tr>`;
   });
 
-  // Consolas
-  const tablaConsola=document.getElementById("tabla-consolas");
-  tablaConsola.innerHTML="";
-  consolas.forEach(item=>{
-    const temp=item.temp||generarTemperatura();
+  const tablaConsola=document.getElementById("tabla-consolas"); tablaConsola.innerHTML="";
+  consolas.forEach(async item=>{
+    let temp=item.temp||generarTemperatura();
+    if(!item.temp){await fetch(`${apiUrl}/${item.id}`,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({...item,temp})});}
     const colorTemp=getColorTemp(temp);
     tablaConsola.innerHTML+=`<tr>
-      <td>${new Date(item.date).toLocaleString()}</td>
       <td>${item.name}</td>
       <td>${item.status}</td>
       <td>${item.game}</td>
@@ -262,78 +342,130 @@ async function cargarDatos(){
     </tr>`;
   });
 
-  // PC Gamer
-  const tablaPC=document.getElementById("tabla-pc");
-  tablaPC.innerHTML="";
-  pcs.forEach(item=>{
-    const temp=item.temp||generarTemperatura();
+  const tablaPC=document.getElementById("tabla-pc"); tablaPC.innerHTML="";
+  pcs.forEach(async item=>{
+    let temp=item.temp||generarTemperatura();
+    if(!item.temp){await fetch(`${apiUrl}/${item.id}`,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({...item,temp})});}
     const colorTemp=getColorTemp(temp);
     tablaPC.innerHTML+=`<tr>
-      <td>${new Date(item.date).toLocaleString()}</td>
       <td>${item.name}</td>
       <td>${item.status}</td>
       <td>${item.game}</td>
       <td>${temp}°C <span class="color-indicator" style="background:${colorTemp}"></span></td>
     </tr>`;
+  });
+
+  // Actualizar selects de juegos
+  ["juegoConsola","juegoPC"].forEach(id=>{
+    const sel=document.getElementById(id); sel.innerHTML="";
+    listaJuegos.forEach(j=>{
+      const o=document.createElement("option"); o.value=j; o.textContent=j; sel.appendChild(o);
+    });
   });
 }
 
-// Formularios
-document.getElementById("formLED").addEventListener("submit", async e=>{
+// Refresco automático
+let refresco=setInterval(cargarDatos,2000);
+function pausarRefresco(){clearInterval(refresco);}
+function reanudarRefresco(){refresco=setInterval(cargarDatos,2000);}
+["modalLED","modalConsola","modalPC","modalJuego","modalDesinstalar"].forEach(id=>{
+  const modalEl=document.getElementById(id);
+  modalEl.addEventListener('show.bs.modal',pausarRefresco);
+  modalEl.addEventListener('hidden.bs.modal',reanudarRefresco);
+});
+
+// Añadir / Editar LED
+document.getElementById("addLED").addEventListener("click",()=>new bootstrap.Modal(document.getElementById("modalLED")).show());
+document.getElementById("editLED").addEventListener("click",async ()=>{
+  const res=await fetch(apiUrl);
+  const datos=await res.json();
+  const ult=datos.filter(d=>d.type==="led").slice(-1)[0];
+  if(!ult)return alert("No hay LEDs");
+  document.getElementById("ledId").value="";
+  document.getElementById("nombreLED").value=ult.name;
+  document.getElementById("estadoLED").value=ult.status;
+  document.getElementById("colorLED").value=ult.color;
+  new bootstrap.Modal(document.getElementById("modalLED")).show();
+});
+document.getElementById("formLED").addEventListener("submit",async e=>{
   e.preventDefault();
-  const data={ name: document.getElementById("nombreLED").value, type:"led", status: document.getElementById("estadoLED").value, color: document.getElementById("colorLED").value, date:new Date().toISOString() };
+  const data={name:document.getElementById("nombreLED").value,type:"led",status:document.getElementById("estadoLED").value,color:document.getElementById("colorLED").value,date:new Date().toISOString()};
   await fetch(apiUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
   bootstrap.Modal.getInstance(document.getElementById("modalLED")).hide();
   cargarDatos();
 });
-document.getElementById("editarUltimoLED").addEventListener("click", async ()=>{
-  const res=await fetch(apiUrl);
-  const datos=await res.json();
-  const ultimo=datos.filter(d=>d.type==="led").sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
-  if(!ultimo)return alert("No hay luces LED registradas");
-  document.getElementById("nombreLED").value=ultimo.name;
-  document.getElementById("estadoLED").value=ultimo.status;
-  document.getElementById("colorLED").value=ultimo.color;
-  new bootstrap.Modal(document.getElementById("modalLED")).show();
-});
 
-// Consolas
-document.getElementById("formConsola").addEventListener("submit", async e=>{
-  e.preventDefault();
-  const data={ name: document.getElementById("nombreConsola").value, type:"consola", status: document.getElementById("estadoConsola").value, game: document.getElementById("juegoConsola").value, temp: generarTemperatura(), date:new Date().toISOString() };
-  await fetch(apiUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
-  bootstrap.Modal.getInstance(document.getElementById("modalConsola")).hide();
-});
-document.getElementById("editarUltimoConsola").addEventListener("click", async ()=>{
+// Añadir / Editar Consola
+document.getElementById("addConsola").addEventListener("click",()=>new bootstrap.Modal(document.getElementById("modalConsola")).show());
+document.getElementById("editConsola").addEventListener("click",async ()=>{
   const res=await fetch(apiUrl);
   const datos=await res.json();
-  const ultimo=datos.filter(d=>d.type==="consola").sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
-  if(!ultimo)return alert("No hay consolas registradas");
-  document.getElementById("nombreConsola").value=ultimo.name;
-  document.getElementById("estadoConsola").value=ultimo.status;
-  document.getElementById("juegoConsola").value=ultimo.game;
+  const ult=datos.filter(d=>d.type==="consola").slice(-1)[0];
+  if(!ult)return alert("No hay consolas");
+  document.getElementById("consolaId").value="";
+  document.getElementById("nombreConsola").value=ult.name;
+  document.getElementById("estadoConsola").value=ult.status;
+  document.getElementById("juegoConsola").value=ult.game;
   new bootstrap.Modal(document.getElementById("modalConsola")).show();
 });
-
-// PC Gamer
-document.getElementById("formPC").addEventListener("submit", async e=>{
+document.getElementById("formConsola").addEventListener("submit",async e=>{
   e.preventDefault();
-  const data={ name: document.getElementById("nombrePC").value, type:"pc", status: document.getElementById("estadoPC").value, game: document.getElementById("juegoPC").value, temp: generarTemperatura(), date:new Date().toISOString() };
+  const data={name:document.getElementById("nombreConsola").value,type:"consola",status:document.getElementById("estadoConsola").value,game:document.getElementById("juegoConsola").value,temp:generarTemperatura(),date:new Date().toISOString()};
   await fetch(apiUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
-  bootstrap.Modal.getInstance(document.getElementById("modalPC")).hide();
+  bootstrap.Modal.getInstance(document.getElementById("modalConsola")).hide();
+  cargarDatos();
 });
-document.getElementById("editarUltimoPC").addEventListener("click", async ()=>{
+
+// Añadir / Editar PC
+document.getElementById("addPC").addEventListener("click",()=>new bootstrap.Modal(document.getElementById("modalPC")).show());
+document.getElementById("editPC").addEventListener("click",async ()=>{
   const res=await fetch(apiUrl);
   const datos=await res.json();
-  const ultimo=datos.filter(d=>d.type==="pc").sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
-  if(!ultimo)return alert("No hay PCs registradas");
-  document.getElementById("nombrePC").value=ultimo.name;
-  document.getElementById("estadoPC").value=ultimo.status;
-  document.getElementById("juegoPC").value=ultimo.game;
+  const ult=datos.filter(d=>d.type==="pc").slice(-1)[0];
+  if(!ult)return alert("No hay PC");
+  document.getElementById("pcId").value="";
+  document.getElementById("nombrePC").value=ult.name;
+  document.getElementById("estadoPC").value=ult.status;
+  document.getElementById("juegoPC").value=ult.game;
   new bootstrap.Modal(document.getElementById("modalPC")).show();
 });
+document.getElementById("formPC").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const data={name:document.getElementById("nombrePC").value,type:"pc",status:document.getElementById("estadoPC").value,game:document.getElementById("juegoPC").value,temp:generarTemperatura(),date:new Date().toISOString()};
+  await fetch(apiUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+  bootstrap.Modal.getInstance(document.getElementById("modalPC")).hide();
+  cargarDatos();
+});
 
-setInterval(cargarDatos,2000);
+// Añadir juego
+document.getElementById("agregarJuego").addEventListener("click",()=>new bootstrap.Modal(document.getElementById("modalJuego")).show());
+document.getElementById("formJuego").addEventListener("submit",e=>{
+  e.preventDefault();
+  const j=document.getElementById("nombreJuego").value.trim();
+  if(j&&!listaJuegos.includes(j)) listaJuegos.push(j);
+  bootstrap.Modal.getInstance(document.getElementById("modalJuego")).hide();
+  cargarDatos();
+});
+
+// Desinstalar juego
+document.getElementById("desinstalarJuego").addEventListener("click",()=>new bootstrap.Modal(document.getElementById("modalDesinstalar")).show());
+document.getElementById("formDesinstalar").addEventListener("submit",e=>{
+  e.preventDefault();
+  const juego=document.getElementById("juegoEliminar").value;
+  listaJuegos=listaJuegos.filter(j=>j!==juego);
+  bootstrap.Modal.getInstance(document.getElementById("modalDesinstalar")).hide();
+  cargarDatos();
+});
+
+// Actualizar select de desinstalar
+function actualizarSelectDesinstalar(){
+  const sel=document.getElementById("juegoEliminar"); sel.innerHTML="";
+  listaJuegos.forEach(j=>{
+    const o=document.createElement("option"); o.value=j; o.textContent=j; sel.appendChild(o);
+  });
+}
+setInterval(actualizarSelectDesinstalar,1000);
+
 window.onload=cargarDatos;
 </script>
 </body>
