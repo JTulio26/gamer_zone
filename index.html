@@ -40,12 +40,18 @@
       <table class="table table-dark table-striped">
         <thead>
           <tr>
-            <th>ID</th><th>Nombre</th><th>Estado</th><th>Color</th><th>Acciones</th>
+            <th>Fecha/Hora</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Color</th>
           </tr>
         </thead>
         <tbody id="tabla-leds"></tbody>
       </table>
-      <button class="btn btn-outline-gamer" data-bs-toggle="modal" data-bs-target="#modalLED">Agregar Luz LED</button>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-gamer" data-bs-toggle="modal" data-bs-target="#modalLED">Agregar Luz LED</button>
+        <button class="btn btn-outline-gamer" id="editarUltimoLED">Editar Último</button>
+      </div>
     </div>
 
     <!-- Tabla de Consolas -->
@@ -54,12 +60,19 @@
       <table class="table table-dark table-striped">
         <thead>
           <tr>
-            <th>ID</th><th>Nombre</th><th>Estado</th><th>Juego</th><th>Temperatura</th><th>Semáforo</th><th>Acciones</th>
+            <th>Fecha/Hora</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Juego</th>
+            <th>Temperatura</th>
           </tr>
         </thead>
         <tbody id="tabla-consolas"></tbody>
       </table>
-      <button class="btn btn-outline-gamer" data-bs-toggle="modal" data-bs-target="#modalConsola">Agregar Consola</button>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-gamer" data-bs-toggle="modal" data-bs-target="#modalConsola">Agregar Consola</button>
+        <button class="btn btn-outline-gamer" id="editarUltimoConsola">Editar Último</button>
+      </div>
     </div>
 
     <!-- Tabla de PC Gamer -->
@@ -68,35 +81,47 @@
       <table class="table table-dark table-striped">
         <thead>
           <tr>
-            <th>ID</th><th>Nombre</th><th>Estado</th><th>Juego</th><th>Temperatura</th><th>Semáforo</th><th>Acciones</th>
+            <th>Fecha/Hora</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Juego</th>
+            <th>Temperatura</th>
           </tr>
         </thead>
         <tbody id="tabla-pc"></tbody>
       </table>
-      <button class="btn btn-outline-gamer" data-bs-toggle="modal" data-bs-target="#modalPC">Agregar PC Gamer</button>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-gamer" data-bs-toggle="modal" data-bs-target="#modalPC">Agregar PC Gamer</button>
+        <button class="btn btn-outline-gamer" id="editarUltimoPC">Editar Último</button>
+      </div>
     </div>
 
   </div>
 </main>
 
-<!-- Modales -->
 <!-- Modal LED -->
 <div class="modal fade" id="modalLED" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content bg-dark text-white">
-      <div class="modal-header"><h5 class="modal-title">Agregar / Editar Luz LED</h5>
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar / Editar Luz LED</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form id="formLED">
-          <div class="mb-3"><label class="form-label">Nombre</label><input type="text" class="form-control" id="nombreLED" required></div>
-          <div class="mb-3"><label class="form-label">Estado</label>
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreLED" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Estado</label>
             <select class="form-select" id="estadoLED" required>
               <option value="ON">ON</option>
               <option value="OFF">OFF</option>
             </select>
           </div>
-          <div class="mb-3"><label class="form-label">Color</label>
+          <div class="mb-3">
+            <label class="form-label">Color</label>
             <select class="form-select" id="colorLED" required>
               <option value="rojo">Rojo</option>
               <option value="azul">Azul</option>
@@ -115,13 +140,18 @@
 <div class="modal fade" id="modalConsola" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content bg-dark text-white">
-      <div class="modal-header"><h5 class="modal-title">Agregar / Editar Consola</h5>
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar / Editar Consola</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form id="formConsola">
-          <div class="mb-3"><label class="form-label">Nombre</label><input type="text" class="form-control" id="nombreConsola" required></div>
-          <div class="mb-3"><label class="form-label">Estado</label>
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreConsola" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Estado</label>
             <select class="form-select" id="estadoConsola" required>
               <option value="Apagado">Apagado</option>
               <option value="Encendido">Encendido</option>
@@ -129,7 +159,8 @@
               <option value="Reiniciar">Reiniciar</option>
             </select>
           </div>
-          <div class="mb-3"><label class="form-label">Juego</label>
+          <div class="mb-3">
+            <label class="form-label">Juego</label>
             <select class="form-select" id="juegoConsola" required>
               <option value="Fifa">Fifa</option>
               <option value="Minecraft">Minecraft</option>
@@ -148,13 +179,18 @@
 <div class="modal fade" id="modalPC" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content bg-dark text-white">
-      <div class="modal-header"><h5 class="modal-title">Agregar / Editar PC Gamer</h5>
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar / Editar PC Gamer</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form id="formPC">
-          <div class="mb-3"><label class="form-label">Nombre</label><input type="text" class="form-control" id="nombrePC" required></div>
-          <div class="mb-3"><label class="form-label">Estado</label>
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombrePC" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Estado</label>
             <select class="form-select" id="estadoPC" required>
               <option value="Apagado">Apagado</option>
               <option value="Encendido">Encendido</option>
@@ -162,7 +198,8 @@
               <option value="Reiniciar">Reiniciar</option>
             </select>
           </div>
-          <div class="mb-3"><label class="form-label">Juego</label>
+          <div class="mb-3">
+            <label class="form-label">Juego</label>
             <select class="form-select" id="juegoPC" required>
               <option value="Fifa">Fifa</option>
               <option value="Minecraft">Minecraft</option>
@@ -183,149 +220,121 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const apiUrl = "https://68bb0de684055bce63f104f9.mockapi.io/api/v1/zona_gamer";
-const coloresCSS = { rojo:"red", azul:"blue", verde:"green", morado:"purple" };
+const apiUrl="https://68bb0de684055bce63f104f9.mockapi.io/api/v1/zona_gamer";
+const coloresCSS={rojo:"red",azul:"blue",verde:"green",morado:"purple"};
 
-function generarTemperatura(){ return Math.floor(Math.random()*51)+30; }
-function getColorTemp(temp){ if(temp<50)return"green"; if(temp<=65)return"orange"; return"red"; }
+function generarTemperatura(){return Math.floor(Math.random()*(80-30+1))+30;}
+function getColorTemp(temp){if(temp<50)return"green";if(temp<=65)return"orange";return"red";}
 
 async function cargarDatos(){
-  const res = await fetch(apiUrl);
-  const datos = await res.json();
+  const res=await fetch(apiUrl);
+  const datos=await res.json();
 
-  document.getElementById("tabla-leds").innerHTML="";
-  document.getElementById("tabla-consolas").innerHTML="";
-  document.getElementById("tabla-pc").innerHTML="";
+  const leds=datos.filter(d=>d.type==="led").sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
+  const consolas=datos.filter(d=>d.type==="consola").sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
+  const pcs=datos.filter(d=>d.type==="pc").sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
 
-  for(const item of datos){
-    if(item.type==="led"){
-      const colorCirculo = item.status==="ON"?coloresCSS[item.color]:"black";
-      document.getElementById("tabla-leds").innerHTML+=`
-      <tr>
-        <td>${item.id}</td>
-        <td>${item.name}</td>
-        <td>${item.status}</td>
-        <td><span class="color-indicator" style="background:${colorCirculo}"></span> ${item.color}</td>
-        <td>
-          <button class="btn btn-sm btn-outline-gamer" onclick="editarLED('${item.id}')">Editar</button>
-        </td>
-      </tr>`;
-    }
-    if(item.type==="consola"){
-      const temp = item.temp || generarTemperatura();
-      const colorTemp = getColorTemp(temp);
-      document.getElementById("tabla-consolas").innerHTML+=`
-      <tr>
-        <td>${item.id}</td>
-        <td>${item.name}</td>
-        <td>${item.status}</td>
-        <td>${item.game}</td>
-        <td>${temp}°C</td>
-        <td><span class="color-indicator" style="background:${colorTemp}"></span></td>
-        <td>
-          <button class="btn btn-sm btn-outline-gamer" onclick="editarConsola('${item.id}')">Editar</button>
-        </td>
-      </tr>`;
-    }
-    if(item.type==="pc"){
-      const temp = item.temp || generarTemperatura();
-      const colorTemp = getColorTemp(temp);
-      document.getElementById("tabla-pc").innerHTML+=`
-      <tr>
-        <td>${item.id}</td>
-        <td>${item.name}</td>
-        <td>${item.status}</td>
-        <td>${item.game}</td>
-        <td>${temp}°C</td>
-        <td><span class="color-indicator" style="background:${colorTemp}"></span></td>
-        <td>
-          <button class="btn btn-sm btn-outline-gamer" onclick="editarPC('${item.id}')">Editar</button>
-        </td>
-      </tr>`;
-    }
-  }
+  // Luces LED
+  const tablaLED=document.getElementById("tabla-leds");
+  tablaLED.innerHTML="";
+  leds.forEach(item=>{
+    const colorCirculo=item.status==="ON"?coloresCSS[item.color]:"black";
+    tablaLED.innerHTML+=`<tr>
+      <td>${new Date(item.date).toLocaleString()}</td>
+      <td>${item.name}</td>
+      <td>${item.status}</td>
+      <td><span class="color-indicator" style="background:${colorCirculo}"></span> ${item.color}</td>
+    </tr>`;
+  });
+
+  // Consolas
+  const tablaConsola=document.getElementById("tabla-consolas");
+  tablaConsola.innerHTML="";
+  consolas.forEach(item=>{
+    const temp=item.temp||generarTemperatura();
+    const colorTemp=getColorTemp(temp);
+    tablaConsola.innerHTML+=`<tr>
+      <td>${new Date(item.date).toLocaleString()}</td>
+      <td>${item.name}</td>
+      <td>${item.status}</td>
+      <td>${item.game}</td>
+      <td>${temp}°C <span class="color-indicator" style="background:${colorTemp}"></span></td>
+    </tr>`;
+  });
+
+  // PC Gamer
+  const tablaPC=document.getElementById("tabla-pc");
+  tablaPC.innerHTML="";
+  pcs.forEach(item=>{
+    const temp=item.temp||generarTemperatura();
+    const colorTemp=getColorTemp(temp);
+    tablaPC.innerHTML+=`<tr>
+      <td>${new Date(item.date).toLocaleString()}</td>
+      <td>${item.name}</td>
+      <td>${item.status}</td>
+      <td>${item.game}</td>
+      <td>${temp}°C <span class="color-indicator" style="background:${colorTemp}"></span></td>
+    </tr>`;
+  });
 }
 
-async function guardarDispositivo(data){
-  data.date = new Date().toISOString();
-  await fetch(apiUrl, { method: "POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(data) });
-  cargarDatos();
-}
-
-// Form LED
+// Formularios
 document.getElementById("formLED").addEventListener("submit", async e=>{
   e.preventDefault();
-  const data = {
-    name: document.getElementById("nombreLED").value,
-    type: "led",
-    status: document.getElementById("estadoLED").value,
-    color: document.getElementById("colorLED").value
-  };
-  await guardarDispositivo(data);
+  const data={ name: document.getElementById("nombreLED").value, type:"led", status: document.getElementById("estadoLED").value, color: document.getElementById("colorLED").value, date:new Date().toISOString() };
+  await fetch(apiUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
   bootstrap.Modal.getInstance(document.getElementById("modalLED")).hide();
+  cargarDatos();
+});
+document.getElementById("editarUltimoLED").addEventListener("click", async ()=>{
+  const res=await fetch(apiUrl);
+  const datos=await res.json();
+  const ultimo=datos.filter(d=>d.type==="led").sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
+  if(!ultimo)return alert("No hay luces LED registradas");
+  document.getElementById("nombreLED").value=ultimo.name;
+  document.getElementById("estadoLED").value=ultimo.status;
+  document.getElementById("colorLED").value=ultimo.color;
+  new bootstrap.Modal(document.getElementById("modalLED")).show();
 });
 
-// Form Consola
+// Consolas
 document.getElementById("formConsola").addEventListener("submit", async e=>{
   e.preventDefault();
-  let status = document.getElementById("estadoConsola").value;
-  if(status==="Reiniciar"){ status="Encendido"; }
-  const data = {
-    name: document.getElementById("nombreConsola").value,
-    type: "consola",
-    status,
-    game: document.getElementById("juegoConsola").value,
-    temp: generarTemperatura()
-  };
-  await guardarDispositivo(data);
+  const data={ name: document.getElementById("nombreConsola").value, type:"consola", status: document.getElementById("estadoConsola").value, game: document.getElementById("juegoConsola").value, temp: generarTemperatura(), date:new Date().toISOString() };
+  await fetch(apiUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
   bootstrap.Modal.getInstance(document.getElementById("modalConsola")).hide();
 });
-
-// Form PC
-document.getElementById("formPC").addEventListener("submit", async e=>{
-  e.preventDefault();
-  let status = document.getElementById("estadoPC").value;
-  if(status==="Reiniciar"){ status="Encendido"; }
-  const data = {
-    name: document.getElementById("nombrePC").value,
-    type: "pc",
-    status,
-    game: document.getElementById("juegoPC").value,
-    temp: generarTemperatura()
-  };
-  await guardarDispositivo(data);
-  bootstrap.Modal.getInstance(document.getElementById("modalPC")).hide();
+document.getElementById("editarUltimoConsola").addEventListener("click", async ()=>{
+  const res=await fetch(apiUrl);
+  const datos=await res.json();
+  const ultimo=datos.filter(d=>d.type==="consola").sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
+  if(!ultimo)return alert("No hay consolas registradas");
+  document.getElementById("nombreConsola").value=ultimo.name;
+  document.getElementById("estadoConsola").value=ultimo.status;
+  document.getElementById("juegoConsola").value=ultimo.game;
+  new bootstrap.Modal(document.getElementById("modalConsola")).show();
 });
 
-// Funciones editar
-async function editarLED(id){
-  const res = await fetch(`${apiUrl}/${id}`);
-  const led = await res.json();
-  document.getElementById("nombreLED").value = led.name;
-  document.getElementById("estadoLED").value = led.status;
-  document.getElementById("colorLED").value = led.color;
-  new bootstrap.Modal(document.getElementById("modalLED")).show();
-}
-
-async function editarConsola(id){
-  const res = await fetch(`${apiUrl}/${id}`);
-  const con = await res.json();
-  document.getElementById("nombreConsola").value = con.name;
-  document.getElementById("estadoConsola").value = con.status;
-  document.getElementById("juegoConsola").value = con.game;
-  new bootstrap.Modal(document.getElementById("modalConsola")).show();
-}
-
-async function editarPC(id){
-  const res = await fetch(`${apiUrl}/${id}`);
-  const pc = await res.json();
-  document.getElementById("nombrePC").value = pc.name;
-  document.getElementById("estadoPC").value = pc.status;
-  document.getElementById("juegoPC").value = pc.game;
+// PC Gamer
+document.getElementById("formPC").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const data={ name: document.getElementById("nombrePC").value, type:"pc", status: document.getElementById("estadoPC").value, game: document.getElementById("juegoPC").value, temp: generarTemperatura(), date:new Date().toISOString() };
+  await fetch(apiUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+  bootstrap.Modal.getInstance(document.getElementById("modalPC")).hide();
+});
+document.getElementById("editarUltimoPC").addEventListener("click", async ()=>{
+  const res=await fetch(apiUrl);
+  const datos=await res.json();
+  const ultimo=datos.filter(d=>d.type==="pc").sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
+  if(!ultimo)return alert("No hay PCs registradas");
+  document.getElementById("nombrePC").value=ultimo.name;
+  document.getElementById("estadoPC").value=ultimo.status;
+  document.getElementById("juegoPC").value=ultimo.game;
   new bootstrap.Modal(document.getElementById("modalPC")).show();
-}
+});
 
-window.onload = cargarDatos;
+setInterval(cargarDatos,2000);
+window.onload=cargarDatos;
 </script>
 </body>
 </html>
