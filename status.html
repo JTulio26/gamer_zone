@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Status - Zona Gamer IoT</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
@@ -72,6 +73,19 @@
       margin-left: 8px;
       border: 1px solid #fff;
       vertical-align: middle;
+    }
+    .graficas-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .grafica {
+      flex: 1 1 500px;
+      background: #111;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #0ff;
     }
   </style>
 </head>
@@ -145,6 +159,19 @@
       </div>
 
     </div>
+
+    <!-- Gráficas de últimas temperaturas -->
+    <div class="graficas-container">
+      <div class="grafica">
+        <h4>Últimas Temperaturas - Consolas</h4>
+        <canvas id="grafica-consolas"></canvas>
+      </div>
+      <div class="grafica">
+        <h4>Últimas Temperaturas - PC Gamer</h4>
+        <canvas id="grafica-pc"></canvas>
+      </div>
+    </div>
+
   </main>
 
   <footer>
@@ -158,11 +185,12 @@
     function generarTemperatura() { return Math.floor(Math.random() * 51) + 30; }
     function getColorTemp(temp) { if(temp<50)return"green";if(temp<=65)return"orange";return"red"; }
 
+    let graficaConsolas, graficaPC;
+
     async function cargarDatos() {
       const res = await fetch(apiUrl);
       let datos = await res.json();
 
-      // Ordenar por fecha descendente
       datos.sort((a,b)=>new Date(b.date) - new Date(a.date));
 
       document.getElementById("tabla-leds").innerHTML="";
@@ -211,11 +239,69 @@
             <td><span class="color-indicator" style="background:${colorTemp}"></span></td>
           </tr>`;
       });
+
+      // Preparar datos para gráficas (últimas 5 temperaturas)
+      const ultimasConsolas = consolas.slice(0,5).reverse();
+      const ultimasPC = pcs.slice(0,5).reverse();
+
+      const labelsConsolas = ultimasConsolas.map(i=>new Date(i.date).toLocaleTimeString());
+      const tempsConsolas = ultimasConsolas.map(i=>i.temp||generarTemperatura());
+
+      const labelsPC = ultimasPC.map(i=>new Date(i.date).toLocaleTimeString());
+      const tempsPC = ultimasPC.map(i=>i.temp||generarTemperatura());
+
+      // Crear o actualizar gráficas
+      if(graficaConsolas) {
+        graficaConsolas.data.labels = labelsConsolas;
+        graficaConsolas.data.datasets[0].data = tempsConsolas;
+        graficaConsolas.update();
+      } else {
+        graficaConsolas = new Chart(document.getElementById('grafica-consolas'), {
+          type: 'line',
+          data: {
+            labels: labelsConsolas,
+            datasets: [{
+              label: 'Temperatura (°C)',
+              data: tempsConsolas,
+              borderColor: 'cyan',
+              backgroundColor: 'rgba(0,255,255,0.2)',
+              tension: 0.3
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true, max: 100 } }
+          }
+        });
+      }
+
+      if(graficaPC) {
+        graficaPC.data.labels = labelsPC;
+        graficaPC.data.datasets[0].data = tempsPC;
+        graficaPC.update();
+      } else {
+        graficaPC = new Chart(document.getElementById('grafica-pc'), {
+          type: 'line',
+          data: {
+            labels: labelsPC,
+            datasets: [{
+              label: 'Temperatura (°C)',
+              data: tempsPC,
+              borderColor: 'orange',
+              backgroundColor: 'rgba(255,165,0,0.2)',
+              tension: 0.3
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true, max: 100 } }
+          }
+        });
+      }
+
     }
 
-    // Refrescar cada 2 segundos
     setInterval(cargarDatos,2000);
-
     window.onload = cargarDatos;
   </script>
 </body>
