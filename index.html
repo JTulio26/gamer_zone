@@ -39,6 +39,14 @@
 </header>
 
 <main class="container my-5">
+
+  <!-- Interruptor Global -->
+<div class="form-check form-switch my-3">
+  <input class="form-check-input" type="checkbox" id="switchGlobal">
+  <label class="form-check-label" for="switchGlobal">Encender / Apagar Todo (Últimos)</label>
+</div>
+
+
   <div class="tables-container">
 
     <!-- Luces LED -->
@@ -359,6 +367,65 @@ document.getElementById("formPC").addEventListener("submit", async (e)=>{
 /* Inicialización */
 iniciarRefresco();
 window.onload = cargarDatos;
+
+/* ======= SWITCH GLOBAL ======= */
+document.getElementById("switchGlobal").addEventListener("change", async (e) => {
+  const encendido = e.target.checked;
+
+  try {
+    const res = await fetch(apiUrl);
+    const datos = await res.json();
+
+    // Últimos registros
+    const ultimoLED = ordenarPorFechaDesc(datos.filter(d => d.type === "led"))[0];
+    const ultimaConsola = ordenarPorFechaDesc(datos.filter(d => d.type === "consola"))[0];
+    const ultimaPC = ordenarPorFechaDesc(datos.filter(d => d.type === "pc"))[0];
+
+    // LED
+    if(ultimoLED){
+      await fetch(`${apiUrl}/${ultimoLED.id}`, {
+        method: "PUT",
+        headers: { "Content-Type":"application/json" },
+        body: JSON.stringify({
+          ...ultimoLED,
+          status: encendido ? "ON" : "OFF"
+        })
+      });
+    }
+
+    // Consola
+    if(ultimaConsola){
+      await fetch(`${apiUrl}/${ultimaConsola.id}`, {
+        method: "PUT",
+        headers: { "Content-Type":"application/json" },
+        body: JSON.stringify({
+          ...ultimaConsola,
+          status: encendido ? "Encendido" : "Apagado"
+        })
+      });
+    }
+
+    // PC
+    if(ultimaPC){
+      await fetch(`${apiUrl}/${ultimaPC.id}`, {
+        method: "PUT",
+        headers: { "Content-Type":"application/json" },
+        body: JSON.stringify({
+          ...ultimaPC,
+          status: encendido ? "Encendido" : "Apagado"
+        })
+      });
+    }
+
+    // Recargar datos
+    cargarDatos();
+
+  } catch(err){
+    console.error("Error al cambiar estado global:", err);
+  }
+});
+
+
 </script>
 </body>
 </html>
