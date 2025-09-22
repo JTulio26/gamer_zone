@@ -209,7 +209,6 @@ async function cargarDatos(){
     const res = await fetch(apiUrl);
     const datos = await res.json();
 
-    // tomar por tipo, ordenar (más reciente primero) y quedarnos con 5
     const leds = ordenarPorFechaDesc(datos.filter(d=>d.type==="led")).slice(0,5);
     const consolas = ordenarPorFechaDesc(datos.filter(d=>d.type==="consola")).slice(0,5);
     const pcs = ordenarPorFechaDesc(datos.filter(d=>d.type==="pc")).slice(0,5);
@@ -227,7 +226,6 @@ async function cargarDatos(){
     const tablaConsola = document.getElementById("tabla-consolas"); tablaConsola.innerHTML = "";
     for (const item of consolas){
       let temp = item.temp ?? generarTemperatura();
-      // si no existía temp en registro, actualizamos la entrada (opcional)
       if(!item.temp){
         await fetch(`${apiUrl}/${item.id}`, {
           method: "PUT",
@@ -239,6 +237,19 @@ async function cargarDatos(){
       const tr = document.createElement("tr");
       tr.innerHTML = `<td>${item.name}</td><td>${item.status}</td><td>${item.game || ''}</td><td>${temp}°C <span class="color-indicator" style="background:${colorTemp}"></span></td>`;
       tablaConsola.appendChild(tr);
+
+      // NUEVO: cambiar estado suspendido/reiniciar automáticamente
+      if(item.status === "Suspendido"){
+        item.status = "Apagado";
+        await fetch(`${apiUrl}/${item.id}`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify({...item,status:"Apagado"}) });
+      }
+      if(item.status === "Reiniciar"){
+        setTimeout(async ()=>{
+          item.status = "Encendido";
+          await fetch(`${apiUrl}/${item.id}`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify({...item,status:"Encendido"}) });
+          cargarDatos();
+        },5000);
+      }
     }
 
     // PC
@@ -256,9 +267,21 @@ async function cargarDatos(){
       const tr = document.createElement("tr");
       tr.innerHTML = `<td>${item.name}</td><td>${item.status}</td><td>${item.game || ''}</td><td>${temp}°C <span class="color-indicator" style="background:${colorTemp}"></span></td>`;
       tablaPC.appendChild(tr);
+
+      // NUEVO: cambiar estado suspendido/reiniciar automáticamente
+      if(item.status === "Suspendido"){
+        item.status = "Apagado";
+        await fetch(`${apiUrl}/${item.id}`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify({...item,status:"Apagado"}) });
+      }
+      if(item.status === "Reiniciar"){
+        setTimeout(async ()=>{
+          item.status = "Encendido";
+          await fetch(`${apiUrl}/${item.id}`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify({...item,status:"Encendido"}) });
+          cargarDatos();
+        },5000);
+      }
     }
 
-    // actualizar selects de juegos
     actualizarSelectsDeJuego();
 
   }catch(err){
@@ -271,7 +294,6 @@ let refresco = null;
 function iniciarRefresco(){ if(refresco) clearInterval(refresco); refresco = setInterval(cargarDatos,2000); }
 function pausarRefresco(){ if(refresco) clearInterval(refresco); refresco = null; }
 
-/* Pausar antes de abrir modales y reanudar al cerrar */
 ["modalLED","modalConsola","modalPC","modalJuego","modalDesinstalar"].forEach(id=>{
   const el = document.getElementById(id);
   if(!el) return;
@@ -279,7 +301,6 @@ function pausarRefresco(){ if(refresco) clearInterval(refresco); refresco = null
   el.addEventListener("hidden.bs.modal", iniciarRefresco);
 });
 
-/* ======= GESTIÓN JUEGOS (selects) ======= */
 function actualizarSelectsDeJuego(){
   const ids = ["juegoConsola","juegoPC"];
   ids.forEach(id=>{
@@ -292,7 +313,6 @@ function actualizarSelectsDeJuego(){
   });
 }
 
-/* Rellena select de desinstalar justo al abrir modal */
 const modalDesinstalar = document.getElementById("modalDesinstalar");
 if(modalDesinstalar){
   modalDesinstalar.addEventListener("show.bs.modal", ()=>{
@@ -302,7 +322,7 @@ if(modalDesinstalar){
   });
 }
 
-/* ======= EVENTOS Y CRUD (creación de nuevo historial con POST) ======= */
+/* ======= EVENTOS Y CRUD ======= */
 /* LED */
 document.getElementById("addLED").addEventListener("click", ()=> new bootstrap.Modal(document.getElementById("modalLED")).show());
 document.getElementById("editLED").addEventListener("click", async ()=>{
@@ -338,7 +358,6 @@ document.getElementById("editConsola").addEventListener("click", async ()=>{
   document.getElementById("consolaId").value = "";
   document.getElementById("nombreConsola").value = ultimo.name || "";
   document.getElementById("estadoConsola").value = ultimo.status || "Apagado";
-  // rellenar selects de juego antes de asignar valor
   actualizarSelectsDeJuego();
   document.getElementById("juegoConsola").value = ultimo.game || listaJuegos[0] || "";
   new bootstrap.Modal(document.getElementById("modalConsola")).show();
@@ -404,7 +423,6 @@ document.getElementById("formJuego").addEventListener("submit", (e)=>{
 
 /* Juegos: desinstalar */
 document.getElementById("desinstalarJuego").addEventListener("click", ()=> {
-  // rellenamos select al abrir modal (handled también por show.bs.modal)
   const sel = document.getElementById("juegoEliminar"); sel.innerHTML = "";
   listaJuegos.forEach(j=>{ const o=document.createElement("option"); o.value=j; o.textContent=j; sel.appendChild(o); });
   new bootstrap.Modal(document.getElementById("modalDesinstalar")).show();
@@ -418,7 +436,7 @@ document.getElementById("formDesinstalar").addEventListener("submit", (e)=>{
 });
 
 /* Inicialización */
-iniciarRefresco(); // comenzamos refresco
+iniciarRefresco();
 window.onload = cargarDatos;
 </script>
 </body>
